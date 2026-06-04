@@ -54,7 +54,8 @@ and monitor for suspicious activity.
 **Screenshots:**
 ![SSH connection to Ubuntu-SIEM]<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/b8610efe-3079-4044-8756-ec080330f68a" />
 
-![Wazuh dashboard overview]<img width="2510" height="1258" alt="image" src="https://github.com/user-attachments/assets/5d5ea890-0125-4655-9d69-a630d01b32cd" />
+![Wazuh dashboard overview]<img width="2511" height="1332" alt="image" src="https://github.com/user-attachments/assets/4c83c75d-1f31-43ba-a97e-7151d79d4861" />
+
 
 
 ---
