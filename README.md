@@ -29,7 +29,7 @@ projects I can talk about.
 ## Projects
 
 ### 1. SIEM Setup (Wazuh)
-**Status:** In Progress
+**Status:** Complete
 
 **Goal:** Deploy Wazuh on Ubuntu to collect and analyze logs, write detection rules, 
 and monitor for suspicious activity.
@@ -38,6 +38,7 @@ and monitor for suspicious activity.
 - How to deploy and configure a full SIEM stack from scratch
 - How to set up SSH access to a headless Linux server
 - How to use VirtualBox NAT port forwarding to expose VM services to the host
+- How to reset service credentials via command line tools
 - That Wazuh includes built-in support for MITRE ATT&CK, HIPAA, NIST 800-53, and PCI DSS frameworks
 
 **Steps taken:**
@@ -52,22 +53,37 @@ and monitor for suspicious activity.
 - Successfully logged into Wazuh dashboard
 
 **Screenshots:**
-![SSH connection to Ubuntu-SIEM]<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/b8610efe-3079-4044-8756-ec080330f68a" />
+![SSH connection to Ubuntu-SIEM]<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/e638a144-60ce-42d6-b1b2-fe3b9668a118" />
 
-![Wazuh dashboard overview]<img width="2511" height="1332" alt="image" src="https://github.com/user-attachments/assets/4c83c75d-1f31-43ba-a97e-7151d79d4861" />
+
+![Wazuh dashboard overview]<img width="2511" height="1332" alt="image" src="https://github.com/user-attachments/assets/068e30ab-cae6-4640-a274-35389bfd8a12" />
 
 
 
 ---
 
 ### 2. Wazuh Agent Deployment
-**Status:** In Progress
+**Status:** Complete
 
 **Goal:** Connect a Wazuh agent to the SIEM server to start collecting and analyzing 
-real logs and security events.
+real logs and security events from a live endpoint.
+
+**What I learned:**
+- How Wazuh agents register and authenticate with the manager
+- How NAT port forwarding affects agent connectivity and how to work around it
+- How to troubleshoot agent connection issues using ossec.log and agent_control
+- That agents can register successfully but still fail to connect if the server address is wrong
 
 **Steps taken:**
-- 
+- Installed Wazuh agent on Windows 11 host via PowerShell
+- Added port forwarding rules for ports 1514 and 1515 in VirtualBox
+- Diagnosed connection failure using agent logs and manage_agents tool
+- Updated ossec.conf to point agent at 127.0.0.1 instead of 10.0.2.15
+- Confirmed agent active in Wazuh dashboard with live alerts flowing in
+- Windows host immediately generated 435 medium and 180 low severity alerts
+
+**Screenshots:**
+![Wazuh agent active](screenshots/wazuh-agent-active.png)
 
 ---
 
@@ -90,6 +106,7 @@ ports and services, and output a basic report.
 |---------|--------|---------|
 | SSH | Port Forward | ssh david@127.0.0.1 -p 2222 |
 | Wazuh Dashboard | Browser | https://127.0.0.1:8443 |
+| Wazuh Agent | Port Forward | Host 1514/1515 to Guest 1514/1515 |
 
 ---
 
@@ -98,7 +115,8 @@ ports and services, and output a basic report.
 |-------|----------|
 | Copy/paste not working in VirtualBox console | SSH into VM from Windows instead — full copy/paste via Ctrl+V |
 | SSH connection aborted | OpenSSH server not installed by default — ran sudo apt install openssh-server |
-| Wazuh password reset failing with special characters | Bash was interpreting ! and @ as special characters — wrapped password in single quotes and used - as the symbol |
+| Wazuh password reset failing with special characters | Bash interpreted ! and @ as special characters — wrapped password in single quotes and used - as the symbol |
+| Wazuh agent registered but never connected | Agent config had 10.0.2.15 as server address — updated ossec.conf to 127.0.0.1 to route through NAT port forwarding |
 
 ---
 
