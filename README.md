@@ -1,4 +1,3 @@
-# Cybersecurity-Home-Lab
 # Cybersecurity Home Lab
 
 ## Overview
@@ -41,10 +40,13 @@ and monitor for suspicious activity.
 **Steps taken:**
 - Installed VirtualBox on Windows 11 host
 - Created Ubuntu-SIEM VM (8GB RAM, 4 CPUs, 50GB disk)
+- Installed Ubuntu Server 25.04 via unattended install
+- Enabled SSH server on the VM and configured port forwarding in VirtualBox
+- Connected to VM via SSH from Windows for copy/paste workflow
 - 
-
 **Screenshots:**
-[add screenshots here]
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/793b343b-4581-4e76-805a-bd802b12ddfb" />
+
 
 ---
 
@@ -62,13 +64,19 @@ ports and services, and output a basic report.
 
 ---
 
-## Challenges & Troubleshooting
-Document any problems you ran into and how you fixed them. This is actually one of 
-the most valuable things to show employers — that you can problem solve.
+## Network & Access
+| Method | Details |
+|--------|---------|
+| SSH | ssh david@127.0.0.1 -p 2222 |
+| Port Forwarding | Host 2222 → Guest 22 (NAT) |
 
+---
+
+## Challenges & Troubleshooting
 | Issue | Solution |
 |-------|----------|
-| | |
+| Copy/paste not working in VirtualBox console | SSH into VM from Windows instead — full copy/paste via Ctrl+V |
+| SSH connection aborted | OpenSSH server not installed by default — ran sudo apt install openssh-server |
 
 ---
 
