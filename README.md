@@ -81,14 +81,51 @@ real logs and security events from a live endpoint.
 - Updated ossec.conf to point agent at 127.0.0.1 instead of 10.0.2.15
 - Confirmed agent active in Wazuh dashboard with live alerts flowing in
 - Windows host immediately generated 435 medium and 180 low severity alerts
-
 **Screenshots:**
-![Wazuh agent active](screenshots/wazuh-agent-active.png)
+
 
 ---
+### 3. Alert Analysis & False Positive Investigation
+**Status:** Complete
 
-### 3. Python Vulnerability Scanner
+**Goal:** Explore live alerts in Wazuh, understand what they mean, and practice 
+determining real threats vs false positives — a core SOC analyst skill.
+
+**What I learned:**
+- How to navigate Wazuh's Threat Hunting and Malware Detection modules
+- How to read raw event details including Windows Event IDs and Linux audit logs
+- How Wazuh automatically maps events to compliance frameworks like HIPAA, NIST 800-53, PCI DSS, and GDPR
+- How AppArmor denials appear in a SIEM and how to interpret them
+- How to investigate a trojan detection alert and verify file integrity using dpkg
+- The difference between a real threat and a false positive, and how to document the finding
+
+**Findings:**
+
+**AppArmor DENIED — False Positive**
+Wazuh flagged AppArmor blocking the `who` command from reading a locale file. 
+Investigation showed this is a known compatibility issue between newer Ubuntu utilities 
+and older AppArmor profiles. File access was benign and expected.
+
+**Trojaned file detected (md5sum) — False Positive**
+Wazuh's rootcheck module flagged `/usr/bin/md5sum` as a trojaned binary using a 
+generic signature match. Ran `dpkg -V coreutils` to verify file integrity against 
+the official Ubuntu package — no output confirmed the file is untouched and clean. 
+False positive caused by Ubuntu 25.04 compatibility issues with Wazuh's signature database.
+
+**Service startup type changed (BITS) — Investigate**
+Windows BITS service startup type changed from auto to demand start. While BITS is 
+commonly abused by malware, this change was traced to Wazuh agent installation activity. 
+Wazuh automatically tagged this event against HIPAA 164.312.b, NIST 800-53 AU.6, 
+and PCI DSS 10.6 compliance controls.
+**Screenshots:**
+<img width="2514" height="1334" alt="image" src="https://github.com/user-attachments/assets/0f2bfd59-437e-491a-93a2-5041710d5784" />
+<img width="2513" height="1331" alt="image" src="https://github.com/user-attachments/assets/6620d61a-3426-4834-b505-b1d43c054458" />
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/bc8cfbfd-d44c-4e8a-8151-ee861b79851f" />
+
+
+### 4. Python Vulnerability Scanner
 **Status:** Planned
+
 
 **Goal:** Build a Python script using nmap to scan a target machine, enumerate open 
 ports and services, and output a basic report.
