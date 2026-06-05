@@ -124,19 +124,40 @@ and PCI DSS 10.6 compliance controls.
 
 
 ### 4. Python Vulnerability Scanner
-**Status:** Planned
-
+**Status:** Complete
 
 **Goal:** Build a Python script using nmap to scan a target machine, enumerate open 
-ports and services, and output a basic report.
+ports and services, output a risk-rated report, and generate an HTML report.
 
 **What I learned:**
-- 
+- How to call system tools from Python using subprocess
+- How to parse nmap output programmatically
+- How to assign risk ratings to open ports based on known attack surfaces
+- How to generate styled HTML reports from scan data
+- How to transfer files from a Linux VM to Windows using scp
+
+**Features:**
+- Scans single or multiple targets in one command
+- Detects open ports and identifies running services and versions
+- Automatically rates each port as HIGH, MEDIUM, or LOW risk
+- Saves a plain text report with timestamp
+- Generates a styled HTML report with color coded risk ratings
 
 **Steps taken:**
-- 
+- Installed Python 3.14 and nmap 7.98 on Ubuntu-SIEM
+- Built initial scanner using subprocess and nmap -sV
+- Added report saving with auto-generated timestamped filenames
+- Added port risk rating system based on known high risk ports
+- Added multi-target support
+- Added HTML report generation with dark theme styling
+- Transferred HTML report to Windows via scp for viewing in browser
+
+**Screenshots:**
+<img width="2518" height="1339" alt="image" src="https://github.com/user-attachments/assets/5876950c-b478-4203-96a4-37c5237f8b31" />
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/269db77d-97f7-4d80-9a29-101eb172548a" />
 
 ---
+
 
 ## Network & Access
 | Service | Method | Details |
