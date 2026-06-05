@@ -176,7 +176,8 @@ ports and services, output a risk-rated report, and generate an HTML report.
 | Wazuh password reset failing with special characters | Bash interpreted ! and @ as special characters — wrapped password in single quotes and used - as the symbol |
 | Wazuh agent registered but never connected | Agent config had 10.0.2.15 as server address — updated ossec.conf to 127.0.0.1 to route through NAT port forwarding |
 | Trojaned file alert on md5sum | False positive — verified with dpkg -V coreutils, file integrity confirmed clean |
-
+| scp wildcard not expanding on Windows | Used exact filename instead of wildcard pattern |
+| Desktop path not found via scp | Desktop was located in OneDrive folder, not default user profile path |
 
 ---
 
