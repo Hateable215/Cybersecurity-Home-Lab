@@ -154,6 +154,8 @@ ports and services, and output a basic report.
 | SSH connection aborted | OpenSSH server not installed by default — ran sudo apt install openssh-server |
 | Wazuh password reset failing with special characters | Bash interpreted ! and @ as special characters — wrapped password in single quotes and used - as the symbol |
 | Wazuh agent registered but never connected | Agent config had 10.0.2.15 as server address — updated ossec.conf to 127.0.0.1 to route through NAT port forwarding |
+| Trojaned file alert on md5sum | False positive — verified with dpkg -V coreutils, file integrity confirmed clean |
+
 
 ---
 
